@@ -18,6 +18,8 @@ class TalkerDioLoggerSettings {
     this.printRequestHeaders = false,
     this.printRequestExtra = false,
     this.hiddenHeaders = const <String>{},
+    this.exclude = const [],
+
     this.requestPen,
     this.responsePen,
     this.errorPen,
@@ -64,6 +66,8 @@ class TalkerDioLoggerSettings {
 
   /// Print [request.extra] if true
   final bool printRequestExtra;
+
+  final List<String> exclude;
 
   /// Field to set custom http request console logs color
   ///```

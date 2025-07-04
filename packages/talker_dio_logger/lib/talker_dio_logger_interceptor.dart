@@ -64,6 +64,9 @@ class TalkerDioLogger extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
+    for(final str in settings.exclude) {
+      if(options.path.contains(str)) return;
+    }
     if (settings.enabled && settings.printResponseTime) {
       options.extra[kDioLogsTimeStampKey] =
           DateTime.now().millisecondsSinceEpoch;
@@ -93,6 +96,9 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
+    for(final str in settings.exclude) {
+      if(response.requestOptions.path.contains(str)) return;
+    }
     if (!settings.enabled) {
       return;
     }
@@ -116,6 +122,9 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
+    for(final str in settings.exclude) {
+      if(err.requestOptions.path.contains(str)) return;
+    }
     if (!settings.enabled) {
       return;
     }
